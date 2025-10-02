@@ -1,0 +1,2 @@
+# accountant-bot
+It accounts.
