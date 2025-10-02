@@ -1,11 +1,10 @@
 # pylint: disable=unused-import
-from tinydb import TinyDB
+
 from telegram import Update
 from telegram.ext import ContextTypes
-from src.utils.context import DBContext
 
 # pylint: disable=unused-argument
 
 
-async def spend(update: Update, context: DBContext) -> None:
+async def reset(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await 1
