@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from tinydb import Query
+from tinydb.operations import subtract
 
 
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -14,6 +15,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     entry = Query()
     dicts = list(db.search(entry.chat_id == chat_id))
     dicts.sort(key=lambda x: x['spent'])
+    to_decrease = dicts[0]['spent']
     n = len(dicts)
     total_spent = sum(item['spent'] for item in dicts)
     average = total_spent / n
@@ -54,3 +56,6 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             message_text = 'Goyims, you only owe your love to Israel. And 150 billion shekels, too.'
 
     await context.bot.send_message(chat_id, text=message_text)
+
+    db.update(subtract('spent', to_decrease),
+              entry.chat_id == chat_id)  # to prevent overflow
