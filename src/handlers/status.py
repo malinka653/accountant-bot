@@ -38,21 +38,25 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             l += 1
 
     if len(context.args) == 1:
+        transactions = 0
         index = next((i for i, item in enumerate(dicts)
                       if item['username'] == context.args[0]), None)
         message_text = 'Goy, you owe:\n'
         for (from_index, to_index), amount in transfers.items():
             if from_index == index:
                 message_text += f'@{dicts[from_index]['username']} -> @{dicts[to_index]['username']}: {amount} shekels\n'
+                transactions += 1
 
-        if message_text == 'Goy, you owe:\n':
+        if transactions == 0:
             message_text = 'Dirty goy, how did you manage to clear your debts?'
     else:
+        transactions = 0
         message_text = 'Goyims, you owe:\n'
         for (from_index, to_index), amount in transfers.items():
             message_text += f'@{dicts[from_index]['username']} -> @{dicts[to_index]['username']}: {amount} shekels\n'
+            transactions += 1
 
-        if message_text == 'Goyims, you owe:\n':
+        if transactions == 0:
             message_text = 'Goyims, you only owe your love to Israel. And 150 billion shekels, too.'
 
     await context.bot.send_message(chat_id, text=message_text)
