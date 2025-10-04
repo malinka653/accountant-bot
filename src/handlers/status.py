@@ -43,8 +43,6 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         for i, item in enumerate(dicts):
             if item['username'] == context.args[0][1:]:
                 index = i
-        print(index)
-        print(dicts[index]['username'])
         message_text = 'Goy, you owe:\n'
         for (from_index, to_index), amount in transfers.items():
             if from_index == index:
