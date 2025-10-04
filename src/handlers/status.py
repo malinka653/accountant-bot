@@ -41,7 +41,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         transactions = 0
         index = None
         for i, item in enumerate(dicts):
-            if item['username'] == context.args[0]:
+            if item['username'] == context.args[0][1:]:
                 index = i
         print(index)
         print(dicts[index]['username'])
