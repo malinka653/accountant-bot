@@ -23,7 +23,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     transfers = {}
     l = 0
     r = n - 1
-    while l < r:
+    while l < r and owes[l] != 0:
         if abs(owes[l]) == abs(owes[r]):
             transfers[(l, r)] = owes[l]
             l += 1
